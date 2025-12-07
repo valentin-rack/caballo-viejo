@@ -28,7 +28,6 @@ input[type="number"] {
   .dark {
     @apply bg-black text-white font-["ibm-plex-mono"];
   }
-
   .light {
     @apply bg-white text-black font-["ibm-plex-mono"];
   }
@@ -37,20 +36,30 @@ input[type="number"] {
 /* cards */
 @layer utilities {
   .dash-card {
-    @apply px-4 pt-2 pb-3 rounded-xl border border-white/10 backdrop-blur-sm bg-white/5 dark:bg-white/5 transition-colors hover:bg-white/8;
+    @apply px-4 pt-2 pb-3 rounded-xl border border-white/10 backdrop-blur-sm bg-white/5 transition-colors hover:bg-white/8 hover:border-white/8;
   }
-
   .dash-title {
-    @apply mb-2 text-sm tracking-wide opacity-50;
+    @apply mb-2 text-sm tracking-wide text-white/50;
   }
 }
 
 /* checklist cells */
 @layer utilities {
   .check-cell {
-    @apply w-[15px] h-[15px] rounded-[3px] bg-white/5 border border-white/10 cursor-pointer hover:bg-amber-500/20 border-amber-400/20;
+    @apply w-[15px] h-[15px] rounded-[3px] bg-white/5 border border-white/10 cursor-pointer hover:bg-amber-500/10 border-amber-400/25;
   }
   .check-cell.on {
-    @apply bg-amber-500/75 border-amber-400/75;
+    @apply bg-amber-500/30 border-amber-400/50;
+  }
+}
+
+/* kata cells */
+@layer utilities {
+  .kata-cell {
+    @apply flex-1 aspect-square h-[8px] rounded-[1px] bg-white/5 border border-white/10 cursor-pointer 
+           hover:bg-amber-500/10 border-amber-400/25 min-w-[4px] transition-colors;
+  }
+  .kata-cell.on {
+    @apply bg-amber-500/30 border-amber-400/50;
   }
 }

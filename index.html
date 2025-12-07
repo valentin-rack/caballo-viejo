@@ -14,7 +14,7 @@
   <header class="relative flex flex-col items-center py-10">
 
     <!-- svg caballo -->
-    <img src="/images/caballo-title-white.svg" alt="Caballo Viejo" class="w-[380px] select-none"/>
+    <img src="/images/caballo-title-white.svg" alt="Caballo Viejo" class="w-[360px] md:w-[500px] select-none"/>
 
     <!-- toggle themes -->
     <div class="absolute top-2 right-2 flex gap-1.5">
@@ -32,7 +32,7 @@
       
       <!-- Days to world cup -->
       <div class="dash-card w-full" id="daysToWorld">
-        <h2 class="dash-title text-left">days to mexico</h2>
+        <h2 class="dash-title text-left">days to mexico <span>🇲🇽</span></h2>
         <p id="daysCount" class="flex justify-center items-end gap-2.5 font-bold tracking-tight"></p>
       </div>
 
@@ -60,6 +60,13 @@
             <tbody id="checkTasks"></tbody>
           </table>
         </div>
+      </div>
+
+
+      <!-- Kata -->
+      <div class="dash-card w-full" id="kataDash">
+        <h2 class="dash-title text-left mb-3">kata</h2>
+        <div id="kataList" class="flex flex-col gap-1.5"></div>
       </div>
 
 
@@ -143,10 +150,11 @@
   <script src="js/main.js"></script>
   <script src="js/days.js"></script>
   <script src="js/wallet.js"></script>
+  <script src="js/checklist.js"></script>
+  <script src="js/kata.js"></script>
   <script src="js/LPDCV.js"></script>
   <script src="js/pomodoro.js"></script>
   <script src="js/short-timers.js"></script>
-  <script src="js/checklist.js"></script>
 
 </body>
 </html>
