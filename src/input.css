@@ -15,6 +15,15 @@ input[type="number"] {
   @apply outline-none border-transparent;
 }
 
+/* ocultar scrollbars */
+#checkGrid::-webkit-scrollbar {
+  display: none;
+}
+#checkGrid {
+  scrollbar-width: none;
+}
+
+/* themes */
 @layer utilities {
   .dark {
     @apply bg-black text-white font-["ibm-plex-mono"];
@@ -25,12 +34,23 @@ input[type="number"] {
   }
 }
 
+/* cards */
 @layer utilities {
   .dash-card {
     @apply px-4 pt-2 pb-3 rounded-xl border border-white/10 backdrop-blur-sm bg-white/5 dark:bg-white/5 transition-colors hover:bg-white/8;
   }
 
   .dash-title {
-    @apply mb-2 text-base tracking-wide opacity-50;
+    @apply mb-2 text-sm tracking-wide opacity-50;
+  }
+}
+
+/* checklist cells */
+@layer utilities {
+  .check-cell {
+    @apply w-[15px] h-[15px] rounded-[3px] bg-white/5 border border-white/10 cursor-pointer hover:bg-amber-500/20 border-amber-400/20;
+  }
+  .check-cell.on {
+    @apply bg-amber-500/75 border-amber-400/75;
   }
 }
