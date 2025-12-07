@@ -4,11 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caballo Viejo</title>
-    <!-- "brush-script-std", "consolas" -->
+    <!-- "brush-script-std", "consolas", "ibm-plex-mono", "ibm-plex-sans", "ibm-plex-sans-condensed"-->
     <link rel="stylesheet" href="https://use.typekit.net/iax2dbr.css"> 
     <link rel="stylesheet" href="css/output.css">
 </head>
-<body>
-    
+<body class="dark min-h-screen transition-colors duration-300">
+
+  <!-- ======== HEADER ======== -->
+  <header class="relative flex flex-col items-center py-10">
+
+    <!-- svg caballo -->
+    <img src="/images/caballo-title-white.svg" alt="Caballo Viejo" class="w-[380px] select-none"/>
+
+    <!-- toggle themes -->
+    <div class="absolute top-2 right-2 flex gap-1.5">
+        <button id="lightBtn" class="w-[16px] h-[16px] rounded-full border border-neutral-500 bg-white hover:scale-110 transition"></button>
+        <button id="darkBtn" class="w-[16px] h-[16px] rounded-full border border-neutral-500 bg-black hover:scale-110 transition"></button>
+    </div>
+  
+  </header>
+
+
+  <!-- ======== MAIN ======== -->
+  <main class="px-2 py-8 md:px-4">
+    <section id="dashboards" class="flex flex-col gap-6 w-full">
+      
+      <!-- days to world cup -->
+      <div class="dash-card w-full" id="daysToWorld">
+        <h2 class="dash-title text-left">Days to Mexico World Cup</h2>
+        <p id="daysCount" class="flex justify-center items-end gap-2.5 font-bold tracking-tight"></p>
+      </div>
+
+      <!-- Wallet -->
+      <div class="dash-card w-full" id="wallet">
+        <h2 class="dash-title text-left">Ahorro (USD)</h2>
+
+        <!-- monto -->
+        <p id="walletAmount" class="text-4xl font-bold mb-4 tracking-tight">0</p>
+
+        <!-- input + botón -->
+        <div class="flex gap-2">
+          <input id="walletInput" type="number" placeholder="Monto" class="bg-transparent border border-white/30 px-2 py-1 rounded w-24 text-right"/>
+          <button id="walletSaveBtn" class="px-3 py-1 border border-white/40 rounded hover:bg-white/10 transition">Guardar</button>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/days.js"></script>
+
 </body>
 </html>

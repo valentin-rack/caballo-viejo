@@ -1,1 +1,21 @@
 @import "tailwindcss";
+
+@layer utilities {
+  .dark {
+    @apply bg-black text-white font-["consolas"];
+  }
+
+  .light {
+    @apply bg-white text-black font-["consolas"];
+  }
+}
+
+@layer utilities {
+  .dash-card {
+    @apply px-4 pt-2 pb-3 rounded-xl border border-white/10 backdrop-blur-sm bg-white/5 dark:bg-white/5;
+  }
+
+  .dash-title {
+    @apply mb-2 text-base font-bold tracking-wide opacity-50;
+  }
+}
