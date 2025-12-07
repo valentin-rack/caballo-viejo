@@ -1,21 +1,36 @@
 @import "tailwindcss";
 
+/* elimina flechas de inputs type number en Chrome, Edge, Safari, Firefox */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* eliminar borde del input al hacer focus */
+#walletInput:focus {
+  @apply outline-none border-transparent;
+}
+
 @layer utilities {
   .dark {
-    @apply bg-black text-white font-["consolas"];
+    @apply bg-black text-white font-["ibm-plex-mono"];
   }
 
   .light {
-    @apply bg-white text-black font-["consolas"];
+    @apply bg-white text-black font-["ibm-plex-mono"];
   }
 }
 
 @layer utilities {
   .dash-card {
-    @apply px-4 pt-2 pb-3 rounded-xl border border-white/10 backdrop-blur-sm bg-white/5 dark:bg-white/5;
+    @apply px-4 pt-2 pb-3 rounded-xl border border-white/10 backdrop-blur-sm bg-white/5 dark:bg-white/5 transition-colors hover:bg-white/8;
   }
 
   .dash-title {
-    @apply mb-2 text-base font-bold tracking-wide opacity-50;
+    @apply mb-2 text-base tracking-wide opacity-50;
   }
 }
