@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+
+/* ======================================================================= */
+/* ============================ GENERAL STYLES =========================== */
+/* ======================================================================= */
+
 /* elimina flechas de inputs type number en Chrome, Edge, Safari, Firefox */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -16,6 +21,12 @@ input[type="number"] {
 }
 
 /* ocultar scrollbars */
+html::-webkit-scrollbar {
+  display: none;
+}
+html {
+  scrollbar-width: none;
+}
 #checkGrid::-webkit-scrollbar {
   display: none;
 }
@@ -23,43 +34,87 @@ input[type="number"] {
   scrollbar-width: none;
 }
 
-/* themes */
-@layer utilities {
-  .dark {
-    @apply bg-black text-white font-["ibm-plex-mono"];
-  }
-  .light {
-    @apply bg-white text-black font-["ibm-plex-mono"];
-  }
-}
 
-/* cards */
+
+
+/* ======================================================================= */
+/* ================================ THEMES =============================== */
+/* ======================================================================= */
+
 @layer utilities {
-  .dash-card {
+
+  /* dark theme */
+  .dark {
+    @apply bg-black text-white font-["archivo-black"];
+  }
+  .dark .caballo-title {
+    content: url("/images/caballo-title-white.svg");
+    @apply mix-blend-difference;
+  }
+  .dark .caballo {
+    content: url("/images/horse-white-silhouette.svg");
+  }
+  /* cards general */
+  .dark .dash-card {
     @apply px-4 pt-2 pb-3 rounded-xl border border-white/10 backdrop-blur-sm bg-white/5 transition-colors hover:bg-white/8 hover:border-white/8;
   }
-  .dash-title {
-    @apply mb-2 text-sm tracking-wide text-white/50;
+  .dark .dash-title {
+    @apply font-["archivo-black"] mb-2 text-sm tracking-wide text-white/50;
   }
-}
-
-/* checklist cells */
-@layer utilities {
-  .check-cell {
-    @apply w-[15px] h-[15px] rounded-[3px] bg-white/5 border border-white/10 cursor-pointer hover:bg-amber-500/10 border-amber-400/25;
+  .dark .card-text {
+    @apply text-white/50 border-white/10;
   }
-  .check-cell.on {
-    @apply bg-amber-500/30 border-amber-400/50;
+  /* checklist cells */
+  .dark .check-cell {
+    @apply w-[15px] h-[15px] rounded-[3px] bg-white/5 border border-white/10 cursor-pointer hover:bg-white/10 hover:border-white/25;
   }
-}
-
-/* kata cells */
-@layer utilities {
-  .kata-cell {
+  .dark .check-cell.on {
+    @apply bg-white/40 border-white/25;
+  }
+  /* kata cells */
+  .dark .kata-cell {
     @apply flex-1 aspect-square h-[8px] rounded-[1px] bg-white/5 border border-white/10 cursor-pointer 
-           hover:bg-amber-500/10 border-amber-400/25 min-w-[4px] transition-colors;
+           hover:bg-white/10 hover:border-white/25 min-w-[4px] transition-colors;
   }
-  .kata-cell.on {
-    @apply bg-amber-500/30 border-amber-400/50;
+  .dark .kata-cell.on {
+    @apply bg-white/40 border-white/25;
+  }
+
+
+  /* light theme */
+  .light {
+    @apply bg-white text-black font-["archivo-black"];
+  }
+  .light .caballo-title {
+    content: url("/images/caballo-title-black.svg");
+  }
+  .light .caballo {
+    content: url("/images/horse-black-silhouette.svg");
+  }
+  /* cards general */
+  .light .dash-card {
+    @apply px-4 pt-2 pb-3 rounded-xl border border-black/10 backdrop-blur-sm bg-black/5 transition-colors hover:bg-black/8 hover:border-black/8;
+  }
+  .light .dash-title {
+    @apply font-["archivo-black"] mb-2 text-sm tracking-wide text-black/50;
+  }
+  .light .card-text {
+    @apply text-black/50 border-black/10;
+  }
+  /* checklist cells */
+  .light .check-cell {
+    @apply w-[15px] h-[15px] rounded-[3px] bg-black/5 border border-black/10 cursor-pointer hover:bg-black/10 hover:border-black/25;
+  }
+  .light .check-cell.on {
+    @apply bg-black/40 border-black/25;
+  }
+  /* kata cells */
+  .light .kata-cell {
+    @apply flex-1 aspect-square h-[8px] rounded-[1px] bg-black/5 border border-black/10 cursor-pointer 
+           hover:bg-black/10 hover:border-black/25 min-w-[4px] transition-colors;
+  }
+  .light .kata-cell.on {
+    @apply bg-black/40 border-black/25;
   }
 }
+

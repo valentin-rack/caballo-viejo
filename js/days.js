@@ -9,7 +9,7 @@ function updateCountdown() {
   const seconds = Math.floor((diff / 1000) % 60);
 
   document.getElementById("daysCount").innerHTML = `
-    <span class="text-6xl opacity-100 text-amber-500">${days}d</span>
+    <span class="text-6xl opacity-75">${days}d</span>
     <span class="text-4xl opacity-50">${hours}h</span>
     <span class="text-3xl opacity-35">${minutes}m</span>
     <span class="text-2xl opacity-25">${seconds}s</span>
