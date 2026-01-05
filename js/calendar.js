@@ -25,7 +25,7 @@ function renderCountdown(el, targetISO) {
 
 const countdowns = [
   { id: "countMerida", target: "2026-10-22T00:00:00-03:00" },
-  { id: "count2ndEnterprise", target: "2026-01-10T00:00:00-03:00" },
+  { id: "count2ndEnterprise", target: "2026-01-18T00:00:00-03:00" },
   { id: "countInstalaciones", target: "2026-02-04T00:00:00-03:00" },
   { id: "countEdificios", target: "2026-02-09T00:00:00-03:00" },
   { id: "countFeb14", target: "2026-02-14T00:00:00-03:00" },

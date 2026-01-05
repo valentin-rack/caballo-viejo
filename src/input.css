@@ -101,11 +101,11 @@ html {
     @apply bg-black text-white font-["archivo-black"];
   }
   .dark .caballo-title {
-    content: url("/images/valen-white.svg");
+    content: url("images/valen-white.svg");
     @apply mix-blend-difference;
   }
   .dark .caballo {
-    content: url("/images/por-white.svg");
+    content: url("images/por-white.svg");
   }
   /* cards general */
   .dark .card {
@@ -159,10 +159,10 @@ html {
     @apply bg-[#FFFCF6] text-black font-["archivo-black"];
   }
   .light .caballo-title {
-    content: url("/images/valen-black.svg");
+    content: url("images/valen-black.svg");
   }
   .light .caballo {
-    content: url("/images/por.svg");
+    content: url("images/por.svg");
   }
   /* cards general */
   .light .card {
