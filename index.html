@@ -13,11 +13,18 @@
   <!-- ======== HEADER ======== -->
   <header class="h-[100vh] relative flex flex-col justify-end items-center">
 
-    <!-- caballo title -->
-    <img src="/images/caballo-title-white.svg" alt="caballo title" class="caballo-title fixed w-[360px] md:w-[500px] z-10 top-3 transition-all duration-300 overflow-hidden"/>
+    <!-- caballo title group -->
+    <div class="caballo-title-group fixed top-5 z-10 flex items-center justify-center gap-60 transition-all duration-300">
+      <!-- imagen izquierda -->
+      <!-- <img src="/images/inyoureyes.png" class="w-[30px] md:w-[43px] -scale-x-100 rotate-[-7deg]"/> -->
+      <!-- imagen central (la que ya tenías) -->
+      <img src="/images/valen-white.svg" class="caballo-title w-[360px] md:w-[275px]"/>
+      <!-- imagen derecha -->
+      <!-- <img src="/images/inyoureyes.png" class="w-[30px] md:w-[43px] rotate-[7deg]"/> -->
+    </div>
 
     <!-- caballo -->
-    <!-- <img src="/images/horse-white-silhouette.svg" alt="caballo silhouette" class="caballo mt-7 w-[300px] md:w-[375px] pointer-events-none"/> -->
+    <!-- <img src="/images/por-white.svg" alt="caballo silhouette" class="caballo mt-15 w-[300px] md:w-[175px] pointer-events-none"/> -->
 
     <!-- toggle themes -->
     <div class="fixed top-2 right-2 flex gap-1.5 z-50">
@@ -27,39 +34,15 @@
   
   </header>
 
-  <!-- Título sticky global -->
-  <!-- <div class="sticky top-0 z-40 flex justify-center pt-4 pb-2 bg-transparent">
-    <img src="/images/caballo-title-white.svg" alt="Caballo Viejo" class="caballo-title w-[360px] md:w-[500px] select-none bottom-5 mix-blend-exclusion"/>
-  </div> -->
 
 
   <!-- ======== MAIN ======== -->
   <main>
-    <section id="dashboards"class="flex flex-col justify-center gap-3 px-2 py-8 w-full max-w-[800px] mx-auto md:grid md:grid-cols-3">
-
-    
-      <!-- Days to world cup -->
-      <div class="dash-card w-full md:col-span-2 md:row-span-1" id="daysToWorld">
-        <h2 class="dash-title text-left">days to mexico</h2>
-        <p id="daysCount" class="flex justify-center items-end gap-2.5 font-bold tracking-tight"></p>
-      </div>
+    <section id="dashboards"class="flex flex-col justify-center gap-3 px-2 py-8 w-full max-w-[1000px] mx-auto md:grid md:grid-cols-10">
 
 
-      <!-- Wallet -->
-      <div class="dash-card w-full md:col-span-1 md:row-span-1" id="wallet">
-        <h2 class="dash-title text-left mb-3">karate wallet</h2>
-        <div class="flex justify-start">
-          <p id="walletDisplay" class="text-3xl font-bold tracking-tight text-center card-text">+ $<span id="walletAmount">0</span></p>
-          <input id="walletInput" type="number" class="hidden bg-transparent border border-white/10 px-2 py-1 rounded text-center text-3xl font-bold tracking-tight w-32"/>
-        </div>
-        <button id="walletEditBtn" class="absolute top-2 right-4 opacity-50 text-base hover:opacity-100 transition cursor-pointer">✎</button>
-      </div>
-
-
-      <!-- Checklist -->
-      <div class="dash-card w-full md:col-span-3 md:row-span-2" id="checklist">
-        <h2 class="dash-title text-left mb-3">checklist</h2>
-
+      <!-- CHECKLIST -->
+      <div class="card w-full md:col-span-10 md:row-span-2" id="checklist">
         <div id="checkGrid" class="overflow-x-auto">
           <table class="border-collapse">
             <thead>
@@ -71,83 +54,134 @@
       </div>
 
 
-      <!-- Kata -->
-      <div class="dash-card w-full md:col-span-2" id="kataDash">
-        <h2 class="dash-title text-left mb-3">kata</h2>
-        <div id="kataList" class="flex flex-col gap-1.5"></div>
+      <!-- KATA -->
+      <div class="card w-full md:col-span-6" id="kataDash">
+        <div id="kataList" class="flex flex-col gap-0.5 overflow-x-auto"></div>
       </div>
 
 
-      <!-- La práctica del Caballo Viejo -->
-      <div class="dash-card w-full md:col-span-1" id="cvTimer">
-        <h2 class="dash-title text-left mb-2">LPDCV</h2>
-        <!-- fase actual -->
+      <!-- CALENDAR -->
+      <div class="card w-full md:col-span-4" id="daysToWorld">
+        <h2 class="card-title text-left mb-3">Days to...</h2>
+        <div class="content flex flex-col gap-2.5">
+
+          <div class="flex items-end gap-2.5">
+            <p id="countMerida" class="flex items-end gap-1 font-bold tracking-tight"></p>
+            <span class="text-base opacity-20 pb-0.5 tracking-wide whitespace-nowrap">...... Mérida</span>
+          </div>
+
+          <div class="flex items-end gap-2.5 text-red-500">
+            <p id="count2ndEnterprise" class="flex items-end gap-1 font-bold tracking-tight"></p>
+            <span class="text-base opacity-20 pb-0.5 tracking-wide whitespace-nowrap">...... 2nd enterprise</span>
+          </div>
+
+          <div class="flex items-end gap-2.5 text-green-500">
+            <p id="countInstalaciones" class="flex items-end gap-1 font-bold tracking-tight"></p>
+            <span class="text-base opacity-20 pb-0.5 tracking-wide whitespace-nowrap">.... Instalaciones</span>
+          </div>
+
+          <div class="flex items-end gap-2.5 text-green-500">
+            <p id="countEdificios" class="flex items-end gap-1 font-bold tracking-tight"></p>
+            <span class="text-base opacity-20 pb-0.5 tracking-wide whitespace-nowrap">...... Edificios</span>
+          </div>
+
+          <div class="flex items-end gap-2.5">
+            <p id="countFeb14" class="flex items-end gap-1 font-bold tracking-tight"></p>
+            <span class="text-base opacity-20 pb-0.5 tracking-wide whitespace-nowrap">...... 14th Feb</span>
+          </div>
+
+          <div class="flex items-end gap-2.5 text-red-500">
+            <p id="countMar30" class="flex items-end gap-1 font-bold tracking-tight"></p>
+            <span class="text-base opacity-20 pb-0.5 tracking-wide whitespace-nowrap">...... of 90 Days</span>
+          </div>
+
+          <div class="flex items-end gap-2.5">
+            <p id="countMay1" class="flex items-end gap-1 font-bold tracking-tight"></p>
+            <span class="text-base opacity-20 pb-0.5 tracking-wide whitespace-nowrap">...... 1st May</span>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- STOPWATCH -->
+      <div class="card w-full md:col-span-10 relative" id="stopwatchCard">
+        <h2 class="card-title text-left mb-3">timer</h2>
+        <div id="timer" class="flex items-end justify-between gap-4 overflow-x-auto">
+          <!-- display (flex + gap-1, y el contenido lo inyecta el JS con spans) -->
+          <p id="timerDisplay"
+            class="flex items-baseline gap-1 font-bold tracking-tight tabular-nums">
+          </p>
+          <!-- controls -->
+          <div class="flex gap-2">
+            <button id="timerStart" class="card-button">start</button>
+            <button id="timerPause"class="card-button">pause</button>
+            <button id="timerReset" class="card-button">reset</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- WALLET -->
+      <!-- <div class="card w-full md:col-span-1 md:row-span-1" id="wallet">
+        <h2 class="card-title text-left mb-3">wallet</h2>
+        <div class="flex justify-start">
+          <p id="walletDisplay" class="text-3xl font-bold tracking-tight text-center card-text">+ $<span id="walletAmount">0</span></p>
+          <input id="walletInput" type="number" class="hidden bg-transparent border border-white/10 px-2 py-1 rounded text-center text-3xl font-bold tracking-tight w-32"/>
+        </div>
+        <button id="walletEditBtn" class="absolute top-2 right-4 opacity-20 text-base hover:opacity-100 transition cursor-pointer">✎</button>
+      </div> -->
+
+
+      <!-- LA PRÁCTICA DEL CABALLO VIEJO -->
+      <!-- <div class="card w-full md:col-span-1" id="cvTimer">
+        <h2 class="card-title text-left mb-2">lpdcv</h2>
         <p id="cvPhase" class="text-xl font-bold tracking-tight text-center opacity-80 mb-1 card-text">
           Pantano
         </p>
-        <!-- display -->
         <p id="cvDisplay" class="text-5xl font-bold tracking-tight text-center mb-4 leading-none card-text">
           0:30
         </p>
-        <!-- controls -->
         <div class="flex justify-center">
-          <button id="cvStart" class="px-4 py-1 border rounded hover:bg-white/10 transition card-text">start</button>
+          <button id="cvStart" class="card-button">start</button>
         </div>
-      </div>
+      </div> -->
 
 
-      <!-- Pomodoro -->
-      <div class="dash-card w-full md:col-span-1" id="pomodoro">
-        <h2 class="dash-title text-left mb-2">pomodoro 🐎</h2>
-        <p id="pomoDisplay" class="text-5xl font-bold tracking-tight text-center mb-4 leading-none card-text">
-          60:00
-        </p>
-        <div class="flex justify-center gap-3 card-text">
-          <button id="pomoStart" class="px-3 py-1 border  rounded hover:bg-white/10 transition">start</button>
-          <button id="pomoPause" class="px-3 py-1 border  rounded hover:bg-white/10 transition">pause</button>
-          <button id="pomoReset" class="px-3 py-1 border  rounded hover:bg-white/10 transition">reset</button>
-        </div>
-      </div>
-
-
-      <!-- Short Timers -->
-      <div class="dash-card w-full md:col-span-1" id="shortTimers">
-        <h2 class="dash-title text-left mb-2">short timers</h2>
+      <!-- TIMERS -->
+      <!-- <div class="card w-full md:col-span-1" id="shortTimers">
+        <h2 class="card-title text-left mb-2">short timers 🐎🐎🐎</h2>
 
         <div class="flex flex-col gap-6">
 
-          <!-- 10 minutos -->
           <div class="flex flex-col items-center gap-2 card-text">
             <p id="timer10" class="text-3xl font-bold tracking-tight leading-none">10:00</p>
             <div class="flex gap-2">
-              <button class="timer-start px-3 py-1 border  rounded" data-minutes="10">start</button>
-              <button class="timer-pause px-3 py-1 border  rounded">pause</button>
-              <button class="timer-reset px-3 py-1 border  rounded">reset</button>
+              <button class="timer-start card-button" data-minutes="10">start</button>
+              <button class="timer-pause card-button">pause</button>
+              <button class="timer-reset card-button">reset</button>
             </div>
           </div>
 
-          <!-- 20 minutos -->
           <div class="flex flex-col items-center gap-2 card-text">
             <p id="timer20" class="text-3xl font-bold tracking-tight leading-none">20:00</p>
             <div class="flex gap-2">
-              <button class="timer-start px-3 py-1 border  rounded" data-minutes="20">start</button>
-              <button class="timer-pause px-3 py-1 border  rounded">pause</button>
-              <button class="timer-reset px-3 py-1 border  rounded">reset</button>
+              <button class="timer-start card-button" data-minutes="20">start</button>
+              <button class="timer-pause card-button">pause</button>
+              <button class="timer-reset card-button">reset</button>
             </div>
           </div>
 
-          <!-- 30 minutos -->
           <div class="flex flex-col items-center gap-2 card-text">
             <p id="timer30" class="text-3xl font-bold tracking-tight leading-none">30:00</p>
             <div class="flex gap-2">
-              <button class="timer-start px-3 py-1 border  rounded" data-minutes="30">start</button>
-              <button class="timer-pause px-3 py-1 border  rounded">pause</button>
-              <button class="timer-reset px-3 py-1 border  rounded">reset</button>
+              <button class="timer-start card-button" data-minutes="30">start</button>
+              <button class="timer-pause card-button">pause</button>
+              <button class="timer-reset card-button">reset</button>
             </div>
           </div>
 
         </div>
-      </div>
+      </div> -->
 
 
     </section>
@@ -156,13 +190,13 @@
 
   <!-- Scripts -->
   <script src="js/main.js"></script>
-  <script src="js/days.js"></script>
+  <script src="js/calendar.js"></script>
   <script src="js/wallet.js"></script>
   <script src="js/checklist.js"></script>
   <script src="js/kata.js"></script>
-  <script src="js/LPDCV.js"></script>
-  <script src="js/pomodoro.js"></script>
-  <script src="js/short-timers.js"></script>
+  <script src="js/lpdcv.js"></script>
+  <script src="js/timers.js"></script>
+  <script src="js/stopwatch.js"></script>
 
 </body>
 </html>

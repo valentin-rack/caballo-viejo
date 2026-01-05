@@ -1,5 +1,5 @@
-const tasks = ["S.R.", "30'", "LPCV", "INC", "SAB"];
-const daysToShow = 318; // después lo expandimos
+const tasks = ["5 AM", "VISION", "CYBER", "LPCV", "SABANA", "SEXLESS", "FLOW?"];
+const daysToShow = 300; // 300 days
 
 const checkGrid = document.getElementById("checkGrid");
 const checkDays = document.getElementById("checkDays");
@@ -25,7 +25,7 @@ checkDays.appendChild(emptyTh);
 // generar header con días
 for (let d = 0; d < daysToShow; d++) {
   const th = document.createElement("th");
-  th.className = "text-[8px] opacity-25 text-center font-normal";
+  th.className = "text-[10px] opacity-25 text-center";
   th.textContent = daysToShow - d; // 318 → 1
   checkDays.appendChild(th);
 }
@@ -37,7 +37,7 @@ tasks.forEach((task, r) => {
   // nombre tarea
   const tdTask = document.createElement("td");
   // ---------- estilos tareas ----------
-  tdTask.className = "pr-1.5 text-[12px] opacity-35";
+  tdTask.className = "pr-1.5 text-[18px] opacity-50 text-red-500 whitespace-nowrap";
   tdTask.textContent = task;
   tr.appendChild(tdTask);
 
