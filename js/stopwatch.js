@@ -1,3 +1,20 @@
+const STORAGE_KEY = "workTimerState";
+
+function saveTimerState() {
+  const data = {
+    elapsedMs,
+    running: timerRunning,
+    lastStartEpoch: timerRunning ? Date.now() : null
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function loadTimerState() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  return raw ? JSON.parse(raw) : null;
+}
+
+
 // ===== STOPWATCH =====
 const timerDisplay = document.getElementById("timerDisplay");
 const timerStartBtn = document.getElementById("timerStart");
@@ -22,9 +39,9 @@ function formatTime(ms) {
   const ss = String(seconds).padStart(2, "0");
 
   return `
-    <span class="text-4xl opacity-50">${hh}h</span>
-    <span class="text-3xl opacity-30">${mm}m</span>
-    <span class="text-2xl opacity-20">${ss}.${tenths}s</span>
+    <span class="text-6xl opacity-50">${hh}h</span>
+    <span class="text-5xl opacity-30">${mm}m</span>
+    <span class="text-4xl opacity-20">${ss}.${tenths}s</span>
   `;
 }
 
@@ -39,19 +56,24 @@ function render() {
 
 function startTimer() {
   if (timerRunning) return;
+
   timerRunning = true;
   startTs = performance.now();
+  saveTimerState();
+
   rafId = requestAnimationFrame(render);
 }
 
 function pauseTimer() {
   if (!timerRunning) return;
+
   timerRunning = false;
   elapsedMs += performance.now() - startTs;
 
   if (rafId) cancelAnimationFrame(rafId);
   rafId = null;
 
+  saveTimerState();
   timerDisplay.innerHTML = formatTime(elapsedMs);
 }
 
@@ -64,6 +86,7 @@ function resetTimer() {
   elapsedMs = 0;
   startTs = 0;
 
+  localStorage.removeItem(STORAGE_KEY);
   timerDisplay.innerHTML = formatTime(0);
 }
 
@@ -72,4 +95,24 @@ timerPauseBtn.addEventListener("click", pauseTimer);
 timerResetBtn.addEventListener("click", resetTimer);
 
 // init
-resetTimer();
+function initTimer() {
+  const saved = loadTimerState();
+
+  if (saved) {
+    elapsedMs = saved.elapsedMs || 0;
+    timerRunning = saved.running || false;
+
+    if (timerRunning && saved.lastStartEpoch) {
+      const delta = Date.now() - saved.lastStartEpoch;
+      elapsedMs += delta;
+      startTs = performance.now();
+      rafId = requestAnimationFrame(render);
+    } else {
+      timerDisplay.innerHTML = formatTime(elapsedMs);
+    }
+  } else {
+    resetTimer();
+  }
+}
+
+initTimer();
