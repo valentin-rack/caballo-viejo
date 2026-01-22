@@ -297,6 +297,9 @@
   .max-w-\[1000px\] {
     max-width: 1000px;
   }
+  .flex-1 {
+    flex: 1;
+  }
   .border-collapse {
     border-collapse: collapse;
   }
@@ -490,6 +493,12 @@
   }
   .text-\[10px\] {
     font-size: 10px;
+  }
+  .text-\[11px\] {
+    font-size: 11px;
+  }
+  .text-\[12px\] {
+    font-size: 12px;
   }
   .text-\[16px\] {
     font-size: 16px;
