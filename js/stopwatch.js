@@ -1,118 +1,151 @@
-const STORAGE_KEY = "workTimerState";
+// ===============================
+// STOPWATCH FACTORY
+// ===============================
 
-function saveTimerState() {
-  const data = {
-    elapsedMs,
-    running: timerRunning,
-    lastStartEpoch: timerRunning ? Date.now() : null
-  };
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-}
+function createStopwatch({
+  storageKey,
+  displayId,
+  toggleId,
+  resetId,
+  targetHours
+}) {
+  const display = document.getElementById(displayId);
+  const toggleBtn = document.getElementById(toggleId);
+  const resetBtn = document.getElementById(resetId);
 
-function loadTimerState() {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  return raw ? JSON.parse(raw) : null;
-}
+  let running = false;
+  let startTs = 0;
+  let elapsedMs = 0;
+  let rafId = null;
 
+  // ---------- persistence ----------
+  function saveState() {
+    localStorage.setItem(storageKey, JSON.stringify({
+      elapsedMs,
+      running,
+      lastStartEpoch: running ? Date.now() : null
+    }));
+  }
 
-// ===== STOPWATCH =====
-const timerDisplay = document.getElementById("timerDisplay");
-const timerStartBtn = document.getElementById("timerStart");
-const timerPauseBtn = document.getElementById("timerPause");
-const timerResetBtn = document.getElementById("timerReset");
+  function loadState() {
+    const raw = localStorage.getItem(storageKey);
+    return raw ? JSON.parse(raw) : null;
+  }
 
-let timerRunning = false;
-let startTs = 0;     // performance.now() cuando arranca
-let elapsedMs = 0;   // acumulado cuando está pausado
-let rafId = null;
+  // ---------- ui helpers ----------
+  function updateToggleIcon() {
+    toggleBtn.textContent = running ? "⏸" : "▶";
+  }
 
-function formatTime(ms) {
-  const totalTenths = Math.floor(ms / 100);
+  function formatTime(ms) {
+    const totalTenths = Math.floor(ms / 100);
+    const totalHours = totalTenths / 36000;
 
-  const hours = Math.floor(totalTenths / 36000); // 60*60*10
-  const minutes = Math.floor((totalTenths % 36000) / 600);
-  const seconds = Math.floor((totalTenths % 600) / 10);
-  const tenths = totalTenths % 10;
+    const h = Math.floor(totalTenths / 36000);
+    const m = Math.floor((totalTenths % 36000) / 600);
+    const s = Math.floor((totalTenths % 600) / 10);
+    const t = totalTenths % 10;
 
-  const hh = String(hours).padStart(2, "0");
-  const mm = String(minutes).padStart(2, "0");
-  const ss = String(seconds).padStart(2, "0");
+    const greenClass = totalHours >= targetHours ? "text-green-500" : "";
 
-  return `
-    <span class="text-6xl opacity-50">${hh}h</span>
-    <span class="text-5xl opacity-30">${mm}m</span>
-    <span class="text-4xl opacity-20">${ss}.${tenths}s</span>
-  `;
-}
+    return `
+      <span class="text-6xl opacity-50 ${greenClass}">
+        ${String(h).padStart(2, "0")}h
+      </span>
+      <span class="text-5xl opacity-30 ${greenClass}">
+        ${String(m).padStart(2, "0")}m
+      </span>
+      <span class="text-4xl opacity-20 ${greenClass}">
+        ${String(s).padStart(2, "0")}.${t}s
+      </span>
+    `;
+  }
 
-function render() {
-  const now = performance.now();
-  const current = timerRunning ? elapsedMs + (now - startTs) : elapsedMs;
+  // ---------- render loop ----------
+  function render() {
+    const now = performance.now();
+    const current = running
+      ? elapsedMs + (now - startTs)
+      : elapsedMs;
 
-  timerDisplay.innerHTML = formatTime(current);
+    display.innerHTML = formatTime(current);
 
-  if (timerRunning) rafId = requestAnimationFrame(render);
-}
+    if (running) {
+      rafId = requestAnimationFrame(render);
+    }
+  }
 
-function startTimer() {
-  if (timerRunning) return;
+  // ---------- actions ----------
+  function toggle() {
+    if (running) {
+      // pause
+      running = false;
+      elapsedMs += performance.now() - startTs;
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    } else {
+      // start
+      running = true;
+      startTs = performance.now();
+      rafId = requestAnimationFrame(render);
+    }
 
-  timerRunning = true;
-  startTs = performance.now();
-  saveTimerState();
+    updateToggleIcon();
+    saveState();
+    display.innerHTML = formatTime(elapsedMs);
+  }
 
-  rafId = requestAnimationFrame(render);
-}
+  function reset() {
+    running = false;
+    cancelAnimationFrame(rafId);
+    rafId = null;
 
-function pauseTimer() {
-  if (!timerRunning) return;
+    elapsedMs = 0;
+    startTs = 0;
 
-  timerRunning = false;
-  elapsedMs += performance.now() - startTs;
+    localStorage.removeItem(storageKey);
+    updateToggleIcon();
+    display.innerHTML = formatTime(0);
+  }
 
-  if (rafId) cancelAnimationFrame(rafId);
-  rafId = null;
+  // ---------- events ----------
+  toggleBtn.addEventListener("click", toggle);
+  resetBtn.addEventListener("click", reset);
 
-  saveTimerState();
-  timerDisplay.innerHTML = formatTime(elapsedMs);
-}
-
-function resetTimer() {
-  timerRunning = false;
-
-  if (rafId) cancelAnimationFrame(rafId);
-  rafId = null;
-
-  elapsedMs = 0;
-  startTs = 0;
-
-  localStorage.removeItem(STORAGE_KEY);
-  timerDisplay.innerHTML = formatTime(0);
-}
-
-timerStartBtn.addEventListener("click", startTimer);
-timerPauseBtn.addEventListener("click", pauseTimer);
-timerResetBtn.addEventListener("click", resetTimer);
-
-// init
-function initTimer() {
-  const saved = loadTimerState();
+  // ---------- init ----------
+  const saved = loadState();
 
   if (saved) {
     elapsedMs = saved.elapsedMs || 0;
-    timerRunning = saved.running || false;
+    running = saved.running || false;
 
-    if (timerRunning && saved.lastStartEpoch) {
-      const delta = Date.now() - saved.lastStartEpoch;
-      elapsedMs += delta;
+    if (running && saved.lastStartEpoch) {
+      elapsedMs += Date.now() - saved.lastStartEpoch;
       startTs = performance.now();
       rafId = requestAnimationFrame(render);
-    } else {
-      timerDisplay.innerHTML = formatTime(elapsedMs);
     }
-  } else {
-    resetTimer();
   }
+
+  updateToggleIcon();
+  display.innerHTML = formatTime(elapsedMs);
 }
 
-initTimer();
+// ===============================
+// INIT BOTH STOPWATCHES
+// ===============================
+
+createStopwatch({
+  storageKey: "workTimerState",
+  displayId: "timerDisplay-work",
+  toggleId: "timerToggle-work",
+  resetId: "timerReset-work",
+  targetHours: 6
+});
+
+createStopwatch({
+  storageKey: "uniTimerState",
+  displayId: "timerDisplay-uni",
+  toggleId: "timerToggle-uni",
+  resetId: "timerReset-uni",
+  targetHours: 4
+});

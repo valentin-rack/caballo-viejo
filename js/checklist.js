@@ -1,5 +1,5 @@
 const tasks = ["5 AM VISION", "WORK 4-6H", "INSTALACIONES", "SABANA", "VISION MASSAGE"];
-const daysToShow = 68; // 68 days
+const daysToShow = 62; // 62 days
 
 const checkGrid = document.getElementById("checkGrid");
 const checkDays = document.getElementById("checkDays");
