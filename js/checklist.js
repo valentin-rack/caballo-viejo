@@ -1,4 +1,4 @@
-const tasks = ["5 AM VISION", "WORK 4-6H", "INSTALACIONES", "SABANA", "VISION MASSAGE"];
+const tasks = ["5 AM VISION", "WORK 6-8H", "INSTALACIONES 4H", "NO MEDIA"];
 const daysToShow = 62; // 62 days
 
 const checkGrid = document.getElementById("checkGrid");
